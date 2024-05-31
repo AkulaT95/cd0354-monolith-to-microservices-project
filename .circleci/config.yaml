@@ -1,8 +1,4 @@
 version: 2.1
-
-orbs:
-  node: circleci/node@20
-
 jobs:
   build_reverse_proxy:
     working_directory: ~/project/udagram-reverseproxy
