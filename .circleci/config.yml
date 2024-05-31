@@ -1,18 +1,19 @@
 version: 2.1
 jobs:
-  build_reverse_proxy:   
+  build_reverse_proxy:
+    working_directory: ~/cd0354-monolith-to-microservices-project/udagram-reverseproxy
     docker:
       - image: cimg/base:2022.09
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_PASSWORD
     steps:
-      - checkout
+      - checkout:
+          path: ~/cd0354-monolith-to-microservices-project
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
           name: Build reverse proxy
-          working_directory: ~/cd0354-monolith-to-microservices-project/udagram-reverseproxy
           command: |
             TAG=1.$CIRCLE_BUILD_NUM
             docker build -t $DOCKERHUB_USERNAME/udagram-reverseproxy:$TAG .
