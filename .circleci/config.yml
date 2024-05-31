@@ -1,7 +1,7 @@
 version: 2.1
 jobs:
   build_reverse_proxy:
-    working_directory: ~/project/udagram-reverseproxy
+    working_directory: ~/udagram-reverseproxy
     docker:
       - image: cimg/base:2022.09
         auth:
@@ -10,7 +10,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:
-          docker_layer_caching: false
+          docker_layer_caching: true
       - run:
           name: Build reverse proxy
           command: |
