@@ -18,12 +18,36 @@ jobs:
             TAG=v1.$CIRCLE_BUILD_NUM
             docker build -t $DOCKERHUB_USERNAME/reverseproxy:$TAG .
       - run:
-          name: Push application Docker image
+          name: Push image to DockerHub
           command: |
             TAG=v1.$CIRCLE_BUILD_NUM
             echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
             docker push $DOCKERHUB_USERNAME/reverseproxy:$TAG
+  build_frontend:
+    working_directory: ~/cd0354-monolith-to-microservices-project/udagram-frontend
+    docker:
+      - image: cimg/base:2022.09
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
+    steps:
+      - checkout:
+          path: ~/cd0354-monolith-to-microservices-project
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Build frontend
+          command: |
+            TAG=v1.$CIRCLE_BUILD_NUM
+            docker build -t $DOCKERHUB_USERNAME/udagram-frontend:$TAG .
+      - run:
+          name: Push image to DockerHub
+          command: |
+            TAG=v1.$CIRCLE_BUILD_NUM
+            echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
+            docker push $DOCKERHUB_USERNAME/udagram-frontend:$TAG      
 workflows:
   build:
     jobs:
       - build_reverse_proxy
+      - build_frontend
