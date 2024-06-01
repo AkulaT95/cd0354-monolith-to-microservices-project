@@ -23,6 +23,7 @@ jobs:
             TAG=v1.$CIRCLE_BUILD_NUM
             echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
             docker push $DOCKERHUB_USERNAME/reverseproxy:$TAG
+            docker push $DOCKERHUB_USERNAME/udagram-api-feed:latest
   build_frontend:
     working_directory: ~/cd0354-monolith-to-microservices-project/udagram-frontend
     docker:
@@ -45,7 +46,8 @@ jobs:
           command: |
             TAG=v1.$CIRCLE_BUILD_NUM
             echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
-            docker push $DOCKERHUB_USERNAME/udagram-frontend:$TAG    
+            docker push $DOCKERHUB_USERNAME/udagram-frontend:$TAG
+            docker push $DOCKERHUB_USERNAME/udagram-api-feed:latest
   build_feed:
     working_directory: ~/cd0354-monolith-to-microservices-project/udagram-api-feed
     docker:
@@ -69,6 +71,7 @@ jobs:
             TAG=v1.$CIRCLE_BUILD_NUM
             echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
             docker push $DOCKERHUB_USERNAME/udagram-api-feed:$TAG
+            docker push $DOCKERHUB_USERNAME/udagram-api-feed:latest
   build_user:
     working_directory: ~/cd0354-monolith-to-microservices-project/udagram-api-user
     docker:
@@ -91,7 +94,8 @@ jobs:
           command: |
             TAG=v1.$CIRCLE_BUILD_NUM
             echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
-            docker push $DOCKERHUB_USERNAME/udagram-api-user:$TAG                  
+            docker push $DOCKERHUB_USERNAME/udagram-api-user:$TAG
+            docker push $DOCKERHUB_USERNAME/udagram-api-feed:latest             
 workflows:
   build:
     jobs:
