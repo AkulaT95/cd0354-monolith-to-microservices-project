@@ -16,7 +16,7 @@ jobs:
           name: Build reverse proxy
           command: |
             TAG=v1.$CIRCLE_BUILD_NUM
-            docker build -t $DOCKERHUB_USERNAME/reverseproxy:$TAG -t $DOCKERHUB_USERNAME/udagram-api-user:latest .
+            docker build -t $DOCKERHUB_USERNAME/reverseproxy:$TAG -t $DOCKERHUB_USERNAME/reverseproxy:latest .
       - run:
           name: Push image to DockerHub
           command: |
@@ -40,7 +40,7 @@ jobs:
           name: Build frontend
           command: |
             TAG=v1.$CIRCLE_BUILD_NUM
-            docker build -t $DOCKERHUB_USERNAME/udagram-frontend:$TAG -t $DOCKERHUB_USERNAME/udagram-api-user:latest .
+            docker build -t $DOCKERHUB_USERNAME/udagram-frontend:$TAG -t $DOCKERHUB_USERNAME/udagram-frontend:latest .
       - run:
           name: Push image to DockerHub
           command: |
@@ -64,7 +64,7 @@ jobs:
           name: Build backend api feed
           command: |
             TAG=v1.$CIRCLE_BUILD_NUM
-            docker build -t $DOCKERHUB_USERNAME/udagram-api-feed:$TAG -t $DOCKERHUB_USERNAME/udagram-api-user:latest .
+            docker build -t $DOCKERHUB_USERNAME/udagram-api-feed:$TAG -t $DOCKERHUB_USERNAME/udagram-api-feed:latest .
       - run:
           name: Push image to DockerHub
           command: |
